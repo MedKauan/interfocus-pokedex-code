@@ -1,5 +1,7 @@
 import React from "react";
-import Charmander from "../../assets/pokemons/Charmander.svg";
+import Squirtle from "../../assets/pokemons/Squirtle.svg";
+import { PokemonDTO } from "../../dtos/Pokemon";
+import retornaSvg from "../../utils/retornaSvg";
 
 import {
   Code,
@@ -10,18 +12,21 @@ import {
   SvgContent,
 } from "./styles";
 
-function SmallCard() {
+interface SmallCardProps {
+  pokemon: PokemonDTO;
+}
+
+function SmallCard({ pokemon }: SmallCardProps) {
   return (
-    <Container>
+    <Container type={pokemon.types[0].name}>
       <PokemonCode>
-        <Code>#001</Code>
+        <Code type={pokemon.types[0].name}>{pokemon.code}</Code>
       </PokemonCode>
 
-      <SvgContent>
-        <Charmander width={72} height={72} />
-      </SvgContent>
-      <NameContent>
-        <Name>Charmander</Name>
+      <SvgContent>{retornaSvg(pokemon.name, 72, 72)}</SvgContent>
+
+      <NameContent type={pokemon.types[0].name}>
+        <Name>{pokemon.name}</Name>
       </NameContent>
     </Container>
   );

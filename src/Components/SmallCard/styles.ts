@@ -1,11 +1,18 @@
 import styled from "styled-components/native";
 
-export const Container = styled.View`
+interface Props{
+  type: string;
+
+}
+
+export const Container = styled.TouchableOpacity<Props>`
   width: 104px;
   height: 112px;
   border-radius: 8px;
   border-width: 1px;
-  border-color: ${({theme}) => theme.fire};
+  margin: 8px 8px 4px 0;
+  border-color: ${({theme, type}) => theme[type]};
+  background-color: ${({theme}) => theme.white}; // Adicionado background
 `;
 
 export const PokemonCode = styled.View`
@@ -15,10 +22,10 @@ export const PokemonCode = styled.View`
   padding: 4px 8px 0 8px
 `;
 
-export const Code = styled.Text`
+export const Code = styled.Text<Props>`
   font-size: 8px;
   font-family: ${({theme}) => theme.fonts.REGULAR};
-  color: ${({theme}) => theme.fire}
+  color:${({theme, type}) => theme[type]};
 `;
 
 export const SvgContent = styled.View`
@@ -26,14 +33,14 @@ export const SvgContent = styled.View`
   justify-content: center;
 `;
 
-export const NameContent = styled.View`
+export const NameContent = styled.View<Props>`
   width: 100%;
   align-items: center;
   justify-content: center;
-  background-color: ${({theme}) => theme.fire};
+  background-color: ${({theme, type}) => theme[type]};
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;
-  padding: 4px 8px;
+  padding: 5px 8px; //padding 5px para arrumar riquinho em branco na tela
 `;
 
 export const Name = styled.Text`
