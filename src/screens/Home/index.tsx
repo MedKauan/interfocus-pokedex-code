@@ -9,7 +9,7 @@ import api from "../../services/api";
 
 import {
   Container,
-  FilterButton,
+  FilterOrderButton,
   Header,
   InputText,
   Title,
@@ -17,24 +17,23 @@ import {
 } from "./styles";
 
 function Home() {
-  const [decrescente, setDecrescente] = useState(false);
-  const [filterName, setFilterName] = useState("");
-  const [pokemons, setPokemons] = useState<PokemonDTO[]>([]);
-  const [pokemonsFilter, setPokemonsFilter] = useState<PokemonDTO[]>([]);
+  const [decrescente, setDecrescente] = useState(false); //filtro de orden
+  const [filterName, setFilterName] = useState(""); //filtro por nome dos pokemons
+  const [pokemons, setPokemons] = useState<PokemonDTO[]>([]); // todos pokemons
+  const [pokemonsFilter, setPokemonsFilter] = useState<PokemonDTO[]>([]); // pokemons que foram filtrados pelo nome
 
   function alterFilterName(name: string) {
-    console.log(name);
     setFilterName(name);
 
     const filtered = pokemons.filter((p) =>
       p.name.toLowerCase().includes(name.toLowerCase())
     );
     setPokemonsFilter(filtered);
-    console.log(filtered);
   }
 
+  //Alterna entre true e false, ou seja ascendente ou decrescente
   function alterFilterType() {
-    setDecrescente((oldState) => !decrescente); //Ou setDecrescente(!decrescente);
+    setDecrescente((oldState) => !oldState); //Ou setDecrescente(!decrescente);
   }
 
   async function getPokemons() {
@@ -42,6 +41,7 @@ function Home() {
       const filter = decrescente
         ? "?_sort=name&_order=desc"
         : "?_sort=name&_order=asc";
+
       const resposta = await api.get<PokemonDTO[]>(`/pokemons${filter}`);
 
       if (resposta.data) {
@@ -66,14 +66,14 @@ function Home() {
             <Title>Pokedex</Title>
           </TitleContent>
 
-          <FilterButton onPress={() => alterFilterType()}>
+          <FilterOrderButton onPress={() => alterFilterType()}>
             {decrescente ? <SortAsc /> : <SortDesc />}
-          </FilterButton>
+          </FilterOrderButton>
         </Header>
         <InputText
           placeholder="Procurar"
           onChangeText={(inputValue) => alterFilterName(inputValue)}
-          keyboardAppearance="dark"
+          keyboardAppearance="dark" //Apenas para IOS
         />
         {/* OU onChangeText={alterFilterName}*/}
 

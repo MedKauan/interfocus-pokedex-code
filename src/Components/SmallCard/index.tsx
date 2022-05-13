@@ -31,4 +31,5 @@ function SmallCard({ pokemon }: SmallCardProps) {
     </Container>
   );
 }
+
 export default SmallCard;

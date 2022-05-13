@@ -27,7 +27,7 @@ export const Title = styled.Text`
   color: ${({theme}) => theme.dark_gray};
 `;
 
-export const FilterButton = styled.TouchableOpacity`
+export const FilterOrderButton = styled.TouchableOpacity`
   align-items: center;
   justify-content: center;
   width: 40px;
