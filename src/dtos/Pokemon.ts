@@ -20,8 +20,29 @@ export interface PokemonStats {
 
 export interface PokemonType {
   id: number;
-  name: string;
+  name: PokemonName;
 };
+
+export enum PokemonName {
+  rock = "rock",
+  ghost = "ghost",
+  steel = "steel",
+  water = "water",
+  grass = "grass",
+  psychic = "psychic",
+  ice = "ice",
+  dark = "dark",
+  fairy = "fairy",
+  normal = "normal",
+  fighthing = "fighthing",
+  flying = "flying",
+  poison = "poison",
+  ground = "ground",
+  bug = "bug",
+  fire = "fire",
+  electric = "electric",
+  dragon = "dragon"
+}
 
 export interface PokemonDTO{
   id: number;

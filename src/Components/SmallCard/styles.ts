@@ -1,8 +1,8 @@
 import styled from "styled-components/native";
+import { PokemonName } from "../../dtos/Pokemon";
 
 interface Props{
-  type: string;
-
+  type: PokemonName;
 }
 
 export const Container = styled.TouchableOpacity<Props>`
