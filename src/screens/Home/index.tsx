@@ -1,3 +1,4 @@
+import { useNavigation } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
 import { FlatList, Keyboard, TouchableWithoutFeedback } from "react-native";
 import Pokebola from "../../assets/icons/pokeball.svg";
@@ -17,7 +18,7 @@ import {
 } from "./styles";
 
 function Home() {
-  const [decrescente, setDecrescente] = useState(false); //filtro de orden
+  const [decrescente, setDecrescente] = useState(false); //filtro de ordem
   const [filterName, setFilterName] = useState(""); //filtro por nome dos pokemons
   const [pokemons, setPokemons] = useState<PokemonDTO[]>([]); // todos pokemons
   const [pokemonsFilter, setPokemonsFilter] = useState<PokemonDTO[]>([]); // pokemons que foram filtrados pelo nome
@@ -74,6 +75,7 @@ function Home() {
           placeholder="Procurar"
           onChangeText={(inputValue) => alterFilterName(inputValue)}
           keyboardAppearance="dark" //Apenas para IOS
+          value={filterName}
         />
         {/* OU onChangeText={alterFilterName}*/}
 

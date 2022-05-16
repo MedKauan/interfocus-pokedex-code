@@ -1,4 +1,6 @@
+import { useNavigation } from "@react-navigation/native";
 import React from "react";
+import { TouchableOpacityProps } from "react-native";
 import Squirtle from "../../assets/pokemons/Squirtle.svg";
 import { PokemonDTO } from "../../dtos/Pokemon";
 import retornaSvg from "../../utils/retornaSvg";
@@ -16,9 +18,24 @@ interface SmallCardProps {
   pokemon: PokemonDTO;
 }
 
-function SmallCard({ pokemon }: SmallCardProps) {
+function SmallCard({ pokemon, ...rest }: SmallCardProps) {
+  const navigation = useNavigation();
+
+  function navigateToDetails(pokemon: PokemonDTO) {
+    navigation.navigate(
+      "Details" as never,
+      {
+        pokemon,
+      } as never
+    );
+  }
+
   return (
-    <Container type={pokemon.types[0].name}>
+    <Container
+      type={pokemon.types[0].name}
+      {...rest}
+      onPress={() => navigateToDetails(pokemon)}
+    >
       <PokemonCode>
         <Code type={pokemon.types[0].name}>{pokemon.code}</Code>
       </PokemonCode>
