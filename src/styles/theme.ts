@@ -27,6 +27,5 @@ export default {
   fonts: {
       REGULAR: "Poppins_400Regular",
       BOLD: "Poppins_700Bold"
-  },
-  
+  }
 }

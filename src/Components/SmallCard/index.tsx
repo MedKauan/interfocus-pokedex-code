@@ -1,7 +1,5 @@
 import { useNavigation } from "@react-navigation/native";
 import React from "react";
-import { TouchableOpacityProps } from "react-native";
-import Squirtle from "../../assets/pokemons/Squirtle.svg";
 import { PokemonDTO } from "../../dtos/Pokemon";
 import retornaSvg from "../../utils/retornaSvg";
 
@@ -23,7 +21,7 @@ function SmallCard({ pokemon, ...rest }: SmallCardProps) {
 
   function navigateToDetails(pokemon: PokemonDTO) {
     navigation.navigate(
-      "Details" as never,
+      "Detalhes" as never,
       {
         pokemon,
       } as never

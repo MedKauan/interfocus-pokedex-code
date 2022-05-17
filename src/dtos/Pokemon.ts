@@ -13,7 +13,7 @@ export interface PokemonStats {
   hp: string;
   atk: string;
   def: string;
-  statk: string;
+  satk: string;
   sdef: string;
   spd: string;
 };
