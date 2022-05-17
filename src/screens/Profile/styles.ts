@@ -38,7 +38,7 @@ export const BackgroundImage = styled.View`
   margin-bottom: 30px;
 `;
 
-export const ExitButton = styled.View`
+export const ExitButton = styled.TouchableOpacity`
   padding: 15px 30px;
   background-color: ${({theme}) => theme.primary};
   align-items: center;

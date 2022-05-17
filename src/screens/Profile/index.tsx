@@ -1,5 +1,6 @@
 import React from "react";
 import { Image } from "react-native";
+import { useAuth } from "../../hooks/auth";
 import {
   BackgroundImage,
   Container,
@@ -11,6 +12,8 @@ import {
 } from "./styles";
 
 function Profile() {
+  const { usuario, logOff } = useAuth();
+
   return (
     <Container>
       <Header>
@@ -30,9 +33,9 @@ function Profile() {
             }}
           />
         </BackgroundImage>
-        <Title>Kauan</Title>
+        <Title>{usuario}</Title>
 
-        <ExitButton>
+        <ExitButton onPress={logOff}>
           <Exit>Sair</Exit>
         </ExitButton>
       </Content>
