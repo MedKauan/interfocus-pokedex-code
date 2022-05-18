@@ -1,48 +1,31 @@
-import React from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useIsFocused } from "@react-navigation/native";
+import React, { useEffect, useState } from "react";
+import { FlatList } from "react-native";
 import FavoriteCard from "../../Components/FavoriteCard";
+import { FavoritoDTO } from "../../dtos/FavoritoDTO";
 import { PokemonDTO } from "../../dtos/Pokemon";
 import { Container, Header, Title } from "./styles";
 
+const FAVORITOS_KEY = "@pokedex:favoritos";
+
 function Favorites() {
-  const pokemon = {
-    id: 1,
-    code: "#001",
-    name: "Bulbasaur",
-    about: {
-      weight: "6,9 kg",
-      height: "0,7 m",
-      description:
-        "There is a plant seed on its back right from the day this Pokémon is born. The seed slowly grows larger.",
-    },
-    moves: [
-      {
-        id: 1,
-        name: "Chlorophyll",
-      },
-      {
-        id: 2,
-        name: "Overgrow",
-      },
-    ],
-    base_stats: {
-      hp: "045",
-      atk: "049",
-      def: "049",
-      satk: "065",
-      sdef: "065",
-      spd: "045",
-    },
-    types: [
-      {
-        id: 1,
-        name: "grass",
-      },
-      {
-        id: 2,
-        name: "poison",
-      },
-    ],
-  } as PokemonDTO;
+  const [favorites, setFavorites] = useState<FavoritoDTO[]>();
+
+  const isFocused = useIsFocused();
+
+  async function getFavorites() {
+    const favoritesStorage = await AsyncStorage.getItem(FAVORITOS_KEY);
+
+    const favoritesParse = favoritesStorage
+      ? (JSON.parse(favoritesStorage) as FavoritoDTO[])
+      : [];
+    setFavorites(favoritesParse);
+  }
+
+  useEffect(() => {
+    getFavorites;
+  }, [isFocused]);
 
   return (
     <Container>
@@ -50,8 +33,17 @@ function Favorites() {
         <></>
         <Title>Favoritos</Title>
       </Header>
+      <FlatList
+        data={favorites}
+        keyExtractor={(item) => item.id.toString()}
+        renderItem={({ item }) => {
+          <FavoriteCard pokemon={item.pokemon} />;
+        }}
+      />
 
-      <FavoriteCard pokemon={pokemon} />
+      {favorites?.map((f) => {
+        <FavoriteCard pokemon={f.pokemon} />;
+      })}
     </Container>
   );
 }

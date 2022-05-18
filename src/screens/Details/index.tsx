@@ -23,13 +23,20 @@ import {
 import TypeCard from "../../Components/TypeCard";
 import AboutData from "../../Components/AboutData";
 import BaseStats from "../../Components/BaseStats";
+import { useAuth } from "../../hooks/auth";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { FavoritoDTO } from "../../dtos/FavoritoDTO";
 
 interface ParametrosRota {
   pokemon: PokemonDTO;
 }
 
+const FAVORITOS_KEY = "@pokedex:favoritos";
+
 function Details() {
   const [pokemon, setPokemon] = useState<PokemonDTO>();
+  const { usuario } = useAuth();
+
   const theme = useTheme();
   const route = useRoute();
 
@@ -39,8 +46,25 @@ function Details() {
   }, []);
 
   const navigation = useNavigation();
+
   function goBack() {
     navigation.goBack();
+  }
+
+  async function addFavorites(pokemon: PokemonDTO) {
+    //const pokemonString = JSON.stringify(pokemon)
+
+    const favoritesStorage = await AsyncStorage.getItem(FAVORITOS_KEY);
+
+    const favoritesParse = favoritesStorage
+      ? (JSON.parse(favoritesStorage) as FavoritoDTO[])
+      : [];
+
+    favoritesParse.push({
+      id: Math.random(),
+      pokemon,
+      usuario: usuario!,
+    });
   }
 
   if (!pokemon) return <View />;
@@ -59,7 +83,12 @@ function Details() {
         </TitleContent>
 
         <ButtonHeader>
-          <MaterialCommunityIcons name="heart" size={22} color={theme.white} />
+          <MaterialCommunityIcons
+            name="heart"
+            size={22}
+            color={theme.white}
+            onPress={() => addFavorites(pokemon)}
+          />
         </ButtonHeader>
       </Header>
 

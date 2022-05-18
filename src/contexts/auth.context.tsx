@@ -1,9 +1,10 @@
 import { createContext } from "react";
+import { UsuarioDTO } from "../dtos/UsuarioDTO";
 
 interface IAuthContext {
-  usuario: string;
-  autenticarComIAS(): void;
-  logOff(): void;
+  usuario: UsuarioDTO | null;
+  autenticarComIAS(): Promise<void>;
+  logOff(): Promise<void>;
 }
 
 export const AuthContext = createContext({} as IAuthContext);

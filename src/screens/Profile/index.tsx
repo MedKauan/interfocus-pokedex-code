@@ -33,7 +33,7 @@ function Profile() {
             }}
           />
         </BackgroundImage>
-        <Title>{usuario}</Title>
+        <Title>{usuario?.usuarioNome}</Title>
 
         <ExitButton onPress={logOff}>
           <Exit>Sair</Exit>
