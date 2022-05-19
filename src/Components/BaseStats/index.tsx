@@ -1,5 +1,5 @@
 import React from "react";
-import { PokemonName, PokemonStats } from "../../dtos/Pokemon";
+import { PokemonName, PokemonStats } from "../../dtos/PokemonDTO";
 import {
   Attribute,
   Attributes,

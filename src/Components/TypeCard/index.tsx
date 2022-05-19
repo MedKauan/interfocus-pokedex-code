@@ -1,5 +1,5 @@
 import React from "react";
-import { PokemonType } from "../../dtos/Pokemon";
+import { PokemonType } from "../../dtos/PokemonDTO";
 import { Container, Type } from "./styles";
 
 interface TypeCardProps {

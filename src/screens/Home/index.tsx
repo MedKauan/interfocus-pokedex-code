@@ -5,7 +5,7 @@ import Pokebola from "../../assets/icons/pokeball.svg";
 import SortAsc from "../../assets/icons/sortasc.svg";
 import SortDesc from "../../assets/icons/sortdesc.svg";
 import SmallCard from "../../Components/SmallCard";
-import { PokemonDTO } from "../../dtos/Pokemon";
+import { PokemonDTO } from "../../dtos/PokemonDTO";
 import api from "../../services/api";
 
 import {
@@ -32,7 +32,7 @@ function Home() {
     setPokemonsFilter(filtered);
   }
 
-  //Alterna entre true e false, ou seja ascendente ou decrescente
+  //Alterna entre true e false, ou seja ascendente owwwwwwwwwwwu decrescente
   function alterFilterType() {
     setDecrescente((oldState) => !oldState); //Ou setDecrescente(!decrescente);
   }

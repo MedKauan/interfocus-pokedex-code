@@ -46,7 +46,7 @@ function AuthProvider({ children }: AuthProviderProps) {
         REDIRECT_URI
       );
 
-      console.log("Resultado Auth", result);
+      //console.log("Resultado Auth", result);
 
       let redirectData;
 
@@ -77,7 +77,7 @@ function AuthProvider({ children }: AuthProviderProps) {
     async function consultaUsuarioStorage() {
       const usuarioStorage = await AsyncStorage.getItem(USUARIO_KEY_STORAGE);
 
-      console.log("Usuario Storage", usuarioStorage);
+      //console.log("Usuario Storage", usuarioStorage);
 
       if (usuarioStorage) {
         const usuarioParse = JSON.parse(usuarioStorage) as UsuarioDTO;

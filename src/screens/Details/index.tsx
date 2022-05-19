@@ -3,7 +3,7 @@ import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { View } from "react-native";
-import { PokemonDTO } from "../../dtos/Pokemon";
+import { PokemonDTO } from "../../dtos/PokemonDTO";
 import retornaSvg from "../../utils/retornaSvg";
 import { Feather, MaterialCommunityIcons } from "@expo/vector-icons";
 import { useTheme } from "styled-components";
@@ -53,7 +53,6 @@ function Details() {
 
   async function addFavorites(pokemon: PokemonDTO) {
     //const pokemonString = JSON.stringify(pokemon)
-
     const favoritesStorage = await AsyncStorage.getItem(FAVORITOS_KEY);
 
     const favoritesParse = favoritesStorage
@@ -65,6 +64,8 @@ function Details() {
       pokemon,
       usuario: usuario!,
     });
+
+    await AsyncStorage.setItem(FAVORITOS_KEY, JSON.stringify(favoritesParse));
   }
 
   if (!pokemon) return <View />;

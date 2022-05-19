@@ -1,4 +1,4 @@
-import { PokemonDTO } from "./Pokemon";
+import { PokemonDTO } from "./PokemonDTO";
 import { UsuarioDTO } from "./UsuarioDTO";
 
 export interface FavoritoDTO {

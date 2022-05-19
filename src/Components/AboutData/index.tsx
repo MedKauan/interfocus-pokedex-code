@@ -1,5 +1,5 @@
 import React from "react";
-import { PokemonMove } from "../../dtos/Pokemon";
+import { PokemonMove } from "../../dtos/PokemonDTO";
 import Weight from "./../../assets/icons/weight.svg";
 import Height from "./../../assets/icons/weight.svg";
 import { Actions, Container, Data, Measures, Name, Value } from "./styles";
