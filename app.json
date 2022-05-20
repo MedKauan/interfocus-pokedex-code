@@ -3,8 +3,11 @@
     "name": "interfocus-pokedex-code",
     "slug": "interfocus-pokedex-code",
     "version": "1.0.0",
-    "assetBundlePatterns": [
-      "**/*"
-    ]
+    "assetBundlePatterns": ["**/*"],
+    "splash": {
+      "image": "./src/assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#F7F7F7"
+    }
   }
 }

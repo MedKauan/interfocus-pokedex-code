@@ -4,21 +4,33 @@ import {
   useFonts,
 } from "@expo-google-fonts/poppins";
 
-import React from "react";
-import { View } from "react-native";
+import React, { useEffect, useState } from "react";
 import { ThemeProvider } from "styled-components";
 import { AuthProvider } from "./src/hooks/auth";
 import Routes from "./src/routes";
+import Loading from "./src/screens/Loading";
 import theme from "./src/styles/theme";
 
 export default function App() {
+  const [test, setTest] = useState(false);
+
+  function alterState() {
+    setTimeout(() => {
+      setTest(true);
+    }, 7000);
+  }
+
+  useEffect(() => {
+    alterState();
+  }, []);
   const [fontsLoaded] = useFonts({
     Poppins_700Bold,
     Poppins_400Regular,
   });
+  0;
 
-  if (!fontsLoaded) {
-    return <View />;
+  if (!fontsLoaded || !test) {
+    return <Loading />;
   }
 
   return (

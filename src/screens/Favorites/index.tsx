@@ -22,7 +22,7 @@ function Favorites() {
   async function getFavorites() {
     const favoritesStorage = await AsyncStorage.getItem(FAVORITOS_KEY);
 
-    console.log("Favoritos storage", favoritesStorage);
+    //console.log("Favoritos storage", favoritesStorage);
 
     const favoritesParse = favoritesStorage
       ? (JSON.parse(favoritesStorage) as FavoritoDTO[])
@@ -47,7 +47,7 @@ function Favorites() {
   }
 
   useEffect(() => {
-    console.log("bateu efeito");
+    //console.log("bateu efeito");
     getFavorites();
   }, [isFocused]);
 
