@@ -1,4 +1,8 @@
-import { useNavigation, useRoute } from "@react-navigation/native";
+import {
+  useIsFocused,
+  useNavigation,
+  useRoute,
+} from "@react-navigation/native";
 import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
@@ -26,6 +30,7 @@ import BaseStats from "../../Components/BaseStats";
 import { useAuth } from "../../hooks/auth";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { FavoritoDTO } from "../../dtos/FavoritoDTO";
+import { UsuarioDTO } from "../../dtos/UsuarioDTO";
 
 interface ParametrosRota {
   pokemon: PokemonDTO;
@@ -35,15 +40,11 @@ const FAVORITOS_KEY = "@pokedex:favoritos";
 
 function Details() {
   const [pokemon, setPokemon] = useState<PokemonDTO>();
+  const [isFavorite, setIsFavorite] = useState(Boolean);
   const { usuario } = useAuth();
 
   const theme = useTheme();
   const route = useRoute();
-
-  useEffect(() => {
-    const parametros = route.params as ParametrosRota;
-    setPokemon(parametros.pokemon);
-  }, []);
 
   const navigation = useNavigation();
 
@@ -51,22 +52,49 @@ function Details() {
     navigation.goBack();
   }
 
+  async function verifyIsFavorite(id: number) {
+    const favorites = await AsyncStorage.getItem(FAVORITOS_KEY);
+
+    const favoritesParse = favorites
+      ? (JSON.parse(favorites) as FavoritoDTO[])
+      : [];
+
+    if (favoritesParse.some((f) => f.pokemon.id === id)) {
+      setIsFavorite(true);
+    } else {
+      setIsFavorite(false);
+    }
+  }
+
   async function addFavorites(pokemon: PokemonDTO) {
     //const pokemonString = JSON.stringify(pokemon)
     const favoritesStorage = await AsyncStorage.getItem(FAVORITOS_KEY);
-
     const favoritesParse = favoritesStorage
       ? (JSON.parse(favoritesStorage) as FavoritoDTO[])
       : [];
 
-    favoritesParse.push({
-      id: Math.random(),
-      pokemon,
-      usuario: usuario!,
-    });
+    if (isFavorite) {
+      const filtered = favoritesParse.filter(
+        (f) => f.pokemon.id !== pokemon.id
+      );
+      await AsyncStorage.setItem(FAVORITOS_KEY, JSON.stringify(filtered));
+    } else {
+      favoritesParse.push({
+        id: Math.random(),
+        pokemon,
+        usuario: usuario!,
+      });
 
-    await AsyncStorage.setItem(FAVORITOS_KEY, JSON.stringify(favoritesParse));
+      await AsyncStorage.setItem(FAVORITOS_KEY, JSON.stringify(favoritesParse));
+    }
+    setIsFavorite((oldState) => !oldState);
   }
+
+  useEffect(() => {
+    const parametros = route.params as ParametrosRota;
+    setPokemon(parametros.pokemon);
+    verifyIsFavorite(parametros.pokemon.id);
+  }, []);
 
   if (!pokemon) return <View />;
 
@@ -83,13 +111,16 @@ function Details() {
           <Code>{pokemon.code}</Code>
         </TitleContent>
 
-        <ButtonHeader>
-          <MaterialCommunityIcons
-            name="heart"
-            size={22}
-            color={theme.white}
-            onPress={() => addFavorites(pokemon)}
-          />
+        <ButtonHeader onPress={() => addFavorites(pokemon)}>
+          {isFavorite ? (
+            <MaterialCommunityIcons
+              name="heart"
+              size={22}
+              color={theme.white}
+            />
+          ) : (
+            <Feather name="heart" size={22} color={theme.background} />
+          )}
         </ButtonHeader>
       </Header>
 

@@ -7,7 +7,11 @@ function Login() {
   const { autenticarComIAS } = useAuth();
 
   return (
-    <Container>
+    <Container
+      colors={["#133ABC", "#5EBCFC"]}
+      start={{ x: 1, y: 0 }}
+      end={{ x: 0, y: 1 }}
+    >
       <PokebolaLogin />
       <LoginButton onPress={autenticarComIAS}>
         <Label>Autenticar com o IAS</Label>
