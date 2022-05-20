@@ -14,6 +14,10 @@ export const Header = styled.View`
   margin-top: 44px;
 `;
 
+export const ButtonHeader = styled.TouchableOpacity`
+  margin-right: 16px;
+`;
+
 export const Title = styled.Text`
   font-size: 16px;
   font-family: ${({theme}) => theme.fonts.BOLD};

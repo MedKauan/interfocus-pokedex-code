@@ -1,15 +1,20 @@
+import { Feather } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useIsFocused } from "@react-navigation/native";
+import { useIsFocused, useNavigation } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
 import { FlatList } from "react-native";
+import { useTheme } from "styled-components";
 import FavoriteCard from "../../Components/FavoriteCard";
 import { FavoritoDTO } from "../../dtos/FavoritoDTO";
 import { PokemonDTO } from "../../dtos/PokemonDTO";
-import { Container, Header, Title } from "./styles";
+import { ButtonHeader, Container, Header, Title } from "./styles";
 
 const FAVORITOS_KEY = "@pokedex:favoritos";
 
 function Favorites() {
+  const theme = useTheme();
+  const navigation = useNavigation();
+
   const [favorites, setFavorites] = useState<FavoritoDTO[]>();
 
   const isFocused = useIsFocused();
@@ -37,6 +42,10 @@ function Favorites() {
     getFavorites();
   }
 
+  function goBack() {
+    navigation.goBack();
+  }
+
   useEffect(() => {
     console.log("bateu efeito");
     getFavorites();
@@ -45,7 +54,9 @@ function Favorites() {
   return (
     <Container>
       <Header>
-        <></>
+        <ButtonHeader onPress={() => goBack()}>
+          <Feather name="arrow-left" size={18} color={theme.primary} />
+        </ButtonHeader>
         <Title>Favoritos</Title>
       </Header>
       <FlatList
