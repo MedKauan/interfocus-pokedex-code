@@ -1,4 +1,8 @@
-import { useNavigation, useRoute } from "@react-navigation/native";
+import {
+  useIsFocused,
+  useNavigation,
+  useRoute,
+} from "@react-navigation/native";
 import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
@@ -37,6 +41,7 @@ function Details() {
 
   const theme = useTheme();
   const route = useRoute();
+  const isFocused = useIsFocused();
 
   const navigation = useNavigation();
 
@@ -54,13 +59,11 @@ function Details() {
     setIsFavorite(favorite);
   }
 
-  //utilizar o isFocused no useEffect para alterar novamente o valor do isFavorite
-
   useEffect(() => {
     const parametros = route.params as ParametrosRota;
     setPokemon(parametros.pokemon);
     verifyIsFavorite(parametros.pokemon.id);
-  }, []);
+  }, [isFocused]);
 
   if (!pokemon) return <Loading />;
 
