@@ -41,17 +41,22 @@ function FavoriteProvider({ children }: FavoriteProviderProps) {
   }
 
   async function removeFavorite(pokemonId: number) {
+    //Consultar dnv (POR DESENCARGO)
     const filtered = favoritesList.filter((f) => f.pokemon.id !== pokemonId);
     await AsyncStorage.setItem(FAVORITOS_KEY, JSON.stringify(filtered));
+    //Chamar função de buscar novamente para forçar atualização do estado
   }
 
   async function existPokemonInFavorites(pokemonId: number) {
+    //Consultar dnv (POR DESENCARGO)
+    //Ou remover o async
     return favoritesList.some((f) => f.pokemon.id === pokemonId);
   }
 
   useEffect(() => {
     listFavorites();
   }, [favoritesList]);
+  //Remover array de dependencias
 
   return (
     <FavoritesContext.Provider

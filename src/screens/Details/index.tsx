@@ -54,6 +54,8 @@ function Details() {
     setIsFavorite(favorite);
   }
 
+  //utilizar o isFocused no useEffect para alterar novamente o valor do isFavorite
+
   useEffect(() => {
     const parametros = route.params as ParametrosRota;
     setPokemon(parametros.pokemon);
