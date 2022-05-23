@@ -1,54 +1,25 @@
 import { Feather } from "@expo/vector-icons";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useIsFocused, useNavigation } from "@react-navigation/native";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { FlatList } from "react-native";
 import { useTheme } from "styled-components";
 import FavoriteCard from "../../Components/FavoriteCard";
-import { FavoritoDTO } from "../../dtos/FavoritoDTO";
-import { PokemonDTO } from "../../dtos/PokemonDTO";
+import { useFavorite } from "../../hooks/favorite";
 import { ButtonHeader, Container, Header, Title } from "./styles";
-
-const FAVORITOS_KEY = "@pokedex:favoritos";
 
 function Favorites() {
   const theme = useTheme();
   const navigation = useNavigation();
-
-  const [favorites, setFavorites] = useState<FavoritoDTO[]>();
+  const { favoritesList, listFavorites, removeFavorite } = useFavorite();
 
   const isFocused = useIsFocused();
-
-  async function getFavorites() {
-    const favoritesStorage = await AsyncStorage.getItem(FAVORITOS_KEY);
-
-    //console.log("Favoritos storage", favoritesStorage);
-
-    const favoritesParse = favoritesStorage
-      ? (JSON.parse(favoritesStorage) as FavoritoDTO[])
-      : [];
-    setFavorites(favoritesParse);
-  }
-
-  async function removeStorage(id: number) {
-    const favoritesStorage = await AsyncStorage.getItem(FAVORITOS_KEY);
-
-    const favoritesParse = favoritesStorage
-      ? (JSON.parse(favoritesStorage) as FavoritoDTO[])
-      : [];
-
-    const filtered = favoritesParse.filter((f) => f.pokemon.id !== id);
-    await AsyncStorage.setItem(FAVORITOS_KEY, JSON.stringify(filtered));
-    getFavorites();
-  }
 
   function goBack() {
     navigation.goBack();
   }
 
   useEffect(() => {
-    //console.log("bateu efeito");
-    getFavorites();
+    listFavorites;
   }, [isFocused]);
 
   return (
@@ -60,12 +31,12 @@ function Favorites() {
         <Title>Favoritos</Title>
       </Header>
       <FlatList
-        data={favorites}
+        data={favoritesList}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
           <FavoriteCard
             pokemon={item.pokemon}
-            removeFunction={() => removeStorage(item.pokemon.id)}
+            removeFunction={() => removeFavorite(item.pokemon.id)}
           />
         )}
         style={{
@@ -76,9 +47,6 @@ function Favorites() {
           paddingLeft: 24,
         }}
       />
-      {/* // {favorites?.map((f) => {
-      //   <FavoriteCard pokemon={f.pokemon} />;
-      // })} */}
     </Container>
   );
 }
