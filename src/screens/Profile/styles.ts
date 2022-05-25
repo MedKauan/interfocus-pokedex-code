@@ -1,4 +1,18 @@
-import styled from "styled-components/native";
+import styled, { css } from "styled-components/native";
+
+interface BackGroundImageProps{
+  hasBackGround?: Boolean;
+}
+
+const BackGroundImageCss = css`
+  background-color: ${({theme}) => theme.primary};
+  width: 140px;
+  height: 140px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 70px;
+  margin-bottom: 30px;
+`;
 
 export const Container = styled.View`
   flex: 1;
@@ -31,14 +45,8 @@ export const Content = styled.View`
   margin-top: 41px;
 `;
 
-export const BackgroundImage = styled.View`
-  background-color: ${({theme}) => theme.primary};
-  width: 140px;
-  height: 140px;
-  align-items: center;
-  justify-content: center;
-  border-radius: 70px;
-  margin-bottom: 30px;
+export const BackgroundImage = styled.View<BackGroundImageProps>`
+  ${({hasBackGround = false}) => !hasBackGround && BackGroundImageCss}
 `;
 
 export const ExitButton = styled.TouchableOpacity`

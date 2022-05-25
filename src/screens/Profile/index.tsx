@@ -4,6 +4,7 @@ import React from "react";
 import { Image } from "react-native";
 import { useTheme } from "styled-components";
 import { useAuth } from "../../hooks/auth";
+import ProfileDefaultImg from "./../../assets/ProfileDefault.png";
 import {
   BackgroundImage,
   ButtonHeader,
@@ -31,18 +32,33 @@ function Profile() {
       </Header>
 
       <Content>
-        <BackgroundImage>
-          <Image
-            source={{
-              uri: "https://avatar.skype.com/v1/avatars/live:kauan_med?auth_key=-1186055440&size=m",
-            }}
-            style={{
-              width: 130,
-              height: 130,
-              borderRadius: 65,
-            }}
-          />
-        </BackgroundImage>
+        {usuario?.usuarioNome == "Kauan Medeiros" ? (
+          <BackgroundImage>
+            <Image
+              source={{
+                uri: "https://avatar.skype.com/v1/avatars/live:kauan_med?auth_key=-1186055440&size=m",
+              }}
+              style={{
+                width: 130,
+                height: 130,
+                borderRadius: 65,
+              }}
+            />
+          </BackgroundImage>
+        ) : (
+          <BackgroundImage hasBackGround>
+            <Image
+              source={ProfileDefaultImg}
+              style={{
+                width: 130,
+                height: 130,
+                borderRadius: 65,
+                borderWidth: 5,
+                borderColor: theme.primary,
+              }}
+            />
+          </BackgroundImage>
+        )}
         <Title>{usuario?.usuarioNome}</Title>
 
         <ExitButton onPress={logOff}>

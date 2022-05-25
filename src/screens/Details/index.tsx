@@ -36,8 +36,7 @@ interface ParametrosRota {
 function Details() {
   const [pokemon, setPokemon] = useState<PokemonDTO>();
   const [isFavorite, setIsFavorite] = useState(Boolean);
-  const { existPokemonInFavorites, addFavorites, favoritesList } =
-    useFavorite();
+  const { existPokemonInFavorites, addFavorites } = useFavorite();
 
   const theme = useTheme();
   const route = useRoute();

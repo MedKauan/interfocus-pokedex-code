@@ -32,7 +32,7 @@ function AuthProvider({ children }: AuthProviderProps) {
       }
     );
 
-    console.log(response.data);
+    //console.log(response.data);
 
     return response.data && response.data.usuarioId !== 0
       ? response.data

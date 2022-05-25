@@ -1,5 +1,5 @@
 import styled from "styled-components/native";
-import { PokemonName } from "../../dtos/Pokemon";
+import { PokemonName } from "../../dtos/PokemonDTO";
 
 interface BackgroundBarProps {
   type: PokemonName;

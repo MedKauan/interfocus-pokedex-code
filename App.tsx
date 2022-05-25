@@ -18,7 +18,7 @@ export default function App() {
   function alterState() {
     setTimeout(() => {
       setTest(true);
-    }, 7000);
+    }, 3900);
   }
 
   useEffect(() => {
